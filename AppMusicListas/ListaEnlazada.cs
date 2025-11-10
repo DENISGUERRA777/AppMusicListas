@@ -150,6 +150,7 @@ namespace AppMusicListas
                 } while (actual != head);
             }
             Console.WriteLine($"Lista exportada a {ruta}");
+            Console.WriteLine();
         }
 
 

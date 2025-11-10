@@ -33,6 +33,7 @@ namespace AppMusicListas
                 //solicita una opcion al usuario
                 if (!int.TryParse(Console.ReadLine(), out option))
                     Console.WriteLine("Debe de introducir un dato valdio");
+                Console.WriteLine();
                 //maneja la  opcion del usuario
                 switch (option)
                 {
@@ -52,6 +53,7 @@ namespace AppMusicListas
                         int selection;
                         while (!int.TryParse(Console.ReadLine(), out selection) || selection < 0 || selection > resultados.Length)
                             Console.WriteLine("debe de elejir una opcion de la lista de resultados");
+                        Console.WriteLine();
 
                         if (selection == 0)//si el usuario desea salir
                             break;
@@ -80,6 +82,7 @@ namespace AppMusicListas
                                 //elije una lista e ingresa la cancion
                                 playLists[selecList-1].AddEnd(resultados[i]);
                                 Console.WriteLine("Cancion agregada con exito");
+                                Console.WriteLine();
                                 break;
                             }
                         }
@@ -99,6 +102,7 @@ namespace AppMusicListas
                         int listS;
                         while(!int.TryParse(Console.ReadLine(), out listS) || listS<=0 || listS>listas)
                             Console.WriteLine("Sellecione una lista pra mostrar las canciones");
+                        Console.WriteLine();
                         playLists[listS-1].Print();
 
                         break;
@@ -117,12 +121,15 @@ namespace AppMusicListas
                         Console.WriteLine("Selecione una lista que quiera gestionar");
                         int listG;
                         while (!int.TryParse(Console.ReadLine(), out listG) || listG <= 0 || listG > listasD)
-                            Console.WriteLine("Sellecione una lista para gestionar");
+                            Console.WriteLine("Selecione una lista para gestionar");
+                        Console.WriteLine();
                         //pregunta si desea eliminar la lista o una cancion
                         Console.WriteLine("Desea eliminar la lista(1) o eliminar canciones(2)");
                         int loC;
                         while (!int.TryParse(Console.ReadLine(), out loC) || loC <= 0 || loC >= 3)
                             Console.WriteLine("seleccione una opcion valida");
+                        Console.WriteLine() ;
+
                         if(loC == 1)
                         {
                             playLists[listG - 1] = null;
@@ -134,6 +141,7 @@ namespace AppMusicListas
                             playLists[playLists.Length - 1] = null;
 
                             Console.WriteLine("Lista eliminada con exito");
+                            Console.WriteLine();
                             break;
                         }
 
@@ -147,11 +155,12 @@ namespace AppMusicListas
 
                             while (!int.TryParse(Console.ReadLine(), out nCancion))
                                 Console.WriteLine(" debe de introducir un numero valio");
+                            Console.WriteLine();
                             playLists[listG - 1].Remove(nCancion);
 
                             Console.WriteLine("desea seguir eliminando Si(s)/No cualquier tecla");
                             seguir = Console.ReadLine();
-                           
+                            Console.WriteLine();
                         }
 
                         break;
@@ -164,6 +173,8 @@ namespace AppMusicListas
                         int listEX;
                         while(!int.TryParse(Console.ReadLine(), out listEX) || listEX <0 || listEX> numeroLs)
                             Console.WriteLine("Seleccione una lista valida para exportar o 0 para salir ");
+                        Console.WriteLine();
+
                         //si desea salir
                         if (listEX == 0)
                             break;
@@ -174,7 +185,7 @@ namespace AppMusicListas
 
                     case 5:
                         //solicita a ruta de la lista
-                        Console.WriteLine("Introduzca ruta del archivo de texto");
+                        Console.WriteLine("Introduzca ruta del archivo de texto(o precione 0 para salir)");
                         Console.WriteLine("Puedes probar con las rutas: \"coldplay hits.txt\" \"metalica hits.txt\")");
                         
                         while (true)
@@ -212,6 +223,7 @@ namespace AppMusicListas
                                 }
                                 //busca un espacio vacio en el array
                                 InsertList(playLists, myPlayListEx);
+                                sr.Close();
                             }
                             catch (Exception ex)
                             {
