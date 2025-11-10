@@ -176,40 +176,50 @@ namespace AppMusicListas
                         //solicita a ruta de la lista
                         Console.WriteLine("Introduzca ruta del archivo de texto");
                         Console.WriteLine("Puedes probar con las rutas: \"coldplay hits.txt\" \"metalica hits.txt\")");
-                        string ruta = Console.ReadLine();
                         
-                        try
+                        while (true)
                         {
-                            //si el archivo no es encontrado
-                            if (!File.Exists(ruta))
+                            string ruta = Console.ReadLine();
+                            if (ruta == "0")
                             {
-                                Console.WriteLine("El archivo especificado no existe.");
-                                return;
+                                Console.WriteLine("Importación cancelada");
+                                break;
                             }
-                            //lee el archivo
-                            StreamReader sr = new StreamReader(ruta);
-                            string line = sr.ReadLine();
-                            //crea la lista y le asigna un nombre
-                            ListaEnlazada myPlayListEx = new ListaEnlazada(line);
-                            //introduce los datos a la nueva lista
-                            while ((line = sr.ReadLine()) != null)
+                            try
                             {
-                                string[] partes = line.Split(new string[] { " - " }, StringSplitOptions.None);
-                                
-                                string title = partes[0];
-                                string artist = partes[1];
-                                string album = partes[2];
-                                long id = long.Parse(partes[3]);
-                                Track song = new Track(title, artist, id, album);
-                                myPlayListEx.AddEnd(song);
+                                //si el archivo no es encontrado
+                                if (!File.Exists(ruta))
+                                {
+                                    Console.WriteLine("El archivo especificado no existe, intente nuevamente.");
+                                    continue;
+                                }
+                                //lee el archivo
+                                StreamReader sr = new StreamReader(ruta);
+                                string line = sr.ReadLine();
+                                //crea la lista y le asigna un nombre
+                                ListaEnlazada myPlayListEx = new ListaEnlazada(line);
+                                //introduce los datos a la nueva lista
+                                while ((line = sr.ReadLine()) != null)
+                                {
+                                    string[] partes = line.Split(new string[] { " - " }, StringSplitOptions.None);
+
+                                    string title = partes[0];
+                                    string artist = partes[1];
+                                    string album = partes[2];
+                                    long id = long.Parse(partes[3]);
+                                    Track song = new Track(title, artist, id, album);
+                                    myPlayListEx.AddEnd(song);
+                                }
+                                //busca un espacio vacio en el array
+                                InsertList(playLists, myPlayListEx);
                             }
-                            //busca un espacio vacio en el array
-                            InsertList(playLists, myPlayListEx);
+                            catch (Exception ex)
+                            {
+                                Console.WriteLine($" Error al importar la lista: {ex.Message}");
+                            }
+                            break;
                         }
-                        catch (Exception ex)
-                        {
-                            Console.WriteLine($" Error al importar la lista: {ex.Message}");
-                        }
+                        
                         break;
 
                     case 6:
